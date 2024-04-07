@@ -1,0 +1,7 @@
+apimServiceName: ${{ secrets.API_MANAGEMENT_SERVICE_NAME }}
+apimServiceResourceGroup: ${{ secrets.API_MANAGEMENT_SERVICE_RESOURCE_GROUP }}
+apimServiceSubscriptionId: ${{ secrets.API_MANAGEMENT_SERVICE_SUBSCRIPTION_ID }}
+apimServiceTenantId: ${{ secrets.API_MANAGEMENT_SERVICE_TENANT_ID }}
+apimServiceClientId: ${{ secrets.API_MANAGEMENT_SERVICE_CLIENT_ID }}
+apimServiceClientSecret: ${{ secrets.API_MANAGEMENT_SERVICE_CLIENT_SECRET }}
+apimServiceEnvironment: ${{ inputs.API_MANAGEMENT_ENVIRONMENT }}
