@@ -9,10 +9,13 @@ jobs:
   job-development:
     runs-on: ubuntu-latest
     steps:
-     - uses: .github/workflows/run-bicep-apim-with-env.yaml
-       with:
-         environmentType: Development
-       env:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Run Bicep APIM with environment
+      uses: ./.github/workflows/run-bicep-apim-with-env.yaml
+      with:
+        environmentType: Development
+      env:
           AZURE_CREDENTIALS: ${{ secrets.AZURE_CLIENT_ID }}
           AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           API_MANAGEMENT_SERVICE_NAME: ${{ secrets.API_MANAGEMENT_SERVICE_NAME }}
@@ -20,7 +23,7 @@ jobs:
   job-production:
     runs-on: ubuntu-latest
     steps:
-     - uses: .github/workflows/run-bicep-apim-with-env.yaml
+     - uses: ./.github/workflows/run-bicep-apim-with-env.yaml
        with:
          environmentType: Production
        env:
