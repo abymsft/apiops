@@ -94,7 +94,6 @@ jobs:
             $ErrorActionPreference = "Stop"
             $VerbosePreference = "Continue"
             $InformationPreference = "Continue"
-            Write-Information -MessageData $env:CONFIGURATION_YAML_PATH
             Write-Information "Downloading extractor..."
             $extractorFileName = "extractor.linux-x64"
             $extractorFinalFileName = "extractor"
