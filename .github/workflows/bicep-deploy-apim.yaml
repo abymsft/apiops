@@ -9,7 +9,7 @@ jobs:
   job-development:
     runs-on: ubuntu-latest
     steps:
-     - uses: ./.github/workflows/run-bicep-apim-with-env.yaml
+     - uses: .github/workflows/run-bicep-apim-with-env.yaml
        with:
          environmentType: Development
        env:
@@ -20,7 +20,7 @@ jobs:
   job-production:
     runs-on: ubuntu-latest
     steps:
-     - uses: ./.github/workflows/run-bicep-apim-with-env.yaml
+     - uses: .github/workflows/run-bicep-apim-with-env.yaml
        with:
          environmentType: Production
        env:
