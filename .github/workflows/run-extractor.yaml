@@ -90,28 +90,39 @@ jobs:
           API_SPECIFICATION_FORMAT: ${{ github.event.inputs.API_SPECIFICATION_FORMAT }} 
           CONFIGURATION_YAML_PATH:  ${{ GITHUB.WORKSPACE }}/${{ github.event.inputs.CONFIGURATION_YAML_PATH }}
         run: |
-          Set-StrictMode -Version Latest
-          $ErrorActionPreference = "Stop"
-          $VerbosePreference = "Continue"
-          $InformationPreference = "Continue"
-          Write-Information -MessageData $env:CONFIGURATION_YAML_PATH
-          Write-Information "Downloading extractor..."
-          $extractorFileName = "${{ runner.os }}" -like "*win*" ? "extractor.win-x64.exe" : "extractor.linux-x64.exe"
-          $uri = "https://github.com/Azure/apiops/releases/download/${{ env.apiops_release_version }}/$extractorFileName"
-          $destinationFilePath = Join-Path "${{ runner.temp }}" "extractor.exe"
-          Invoke-WebRequest -Uri "$uri" -OutFile "$destinationFilePath"
+            Set-StrictMode -Version Latest
+            $ErrorActionPreference = "Stop"
+            $VerbosePreference = "Continue"
+            $InformationPreference = "Continue"
+            Write-Information -MessageData $env:CONFIGURATION_YAML_PATH
+            Write-Information "Downloading extractor..."
+            $extractorFileName = "extractor.linux-x64"
+            $extractorFinalFileName = "extractor"
+            if ("${{ runner.os }}" -like "*win*") {
+              $extractorFileName = "extractor.win-x64.exe"
+              $extractorFinalFileName = "extractor.exe"
+            }
+            elseif ("${{ runner.os }}" -like "*mac*" -and "${{ runner.arch }}" -like "*arm*") {
+              $extractorFileName = "extractor.osx-arm64"
+            }
+            elseif ("${{ runner.os }}" -like "*mac*" -and "${{ runner.arch }}" -like "*x86_64*") {
+              $extractorFileName = "extractor.osx-x64"
+            }
+            $uri = "https://github.com/Azure/apiops/releases/download/${{ env.apiops_release_version }}/$extractorFileName"
+            $destinationFilePath = Join-Path "${{ runner.temp }}" $extractorFinalFileName
+            Invoke-WebRequest -Uri "$uri" -OutFile "$destinationFilePath"
 
-          if ("${{ runner.os }}" -like "*linux*")
-          {
-            Write-Information "Setting file permissions..."
-            & chmod +x "$destinationFilePath"
-            if ($LASTEXITCODE -ne 0) { throw "Setting file permissions failed."}
-          }
+            if ("${{ runner.os }}" -like "*linux*")
+            {
+              Write-Information "Setting file permissions..."
+              & chmod +x "$destinationFilePath"
+              if ($LASTEXITCODE -ne 0) { throw "Setting file permissions failed."}
+            }
 
-          & "$destinationFilePath"              
-          if ($LASTEXITCODE -ne 0) { throw "Running extractor failed."}
+            & "$destinationFilePath"              
+            if ($LASTEXITCODE -ne 0) { throw "Running extractor failed."}
 
-          Write-Information "Execution complete."
+            Write-Information "Execution complete."
         shell: pwsh
 
       - name: publish artifact
