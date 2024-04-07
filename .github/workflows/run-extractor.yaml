@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: Development # change this to match the dev environment created in settings 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
           
       - name: Run extractor without Config Yaml
         if: ${{ github.event.inputs.CONFIGURATION_YAML_PATH == 'Extract All APIs' }}
