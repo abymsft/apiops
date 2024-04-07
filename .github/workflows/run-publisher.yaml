@@ -4,7 +4,7 @@ on:
   # Triggers the workflow on pull request events but only for the main branch
   pull_request:
     branches: [main]
-    types: [closed]
+    types: [labeled]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,6 +21,7 @@ on:
 jobs:
   get-commit:
     runs-on: ubuntu-latest
+    if: github.event.label.name == 'ready'
     steps:
       # Set the COMMIT_ID env variable
       - name: Set the Commit Id
