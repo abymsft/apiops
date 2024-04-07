@@ -19,8 +19,8 @@ on:
         - OpenAPIV3Json
         - OpenAPIV2Yaml
         - OpenAPIV2Json
-  schedule:
-    - cron: '*/20 * * * *'
+  #schedule:
+   # - cron: '*/20 * * * *'
 env:
   apiops_release_version: v5.1.4
 
