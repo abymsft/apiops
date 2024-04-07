@@ -8,21 +8,23 @@ permissions:
 jobs:
   job-development:
     runs-on: ubuntu-latest
-    uses: ./.github/workflows/run-bicep-apim-with-env.yaml
-    with:
-      environmentType: Development
-    secrets:
-      AZURE_CREDENTIALS: ${{ secrets.AZURE_CLIENT_ID }}
-      AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
-      API_MANAGEMENT_SERVICE_NAME: ${{ secrets.API_MANAGEMENT_SERVICE_NAME }}
+    steps:
+     - uses: ./.github/workflows/run-bicep-apim-with-env.yaml
+       with:
+         environmentType: Development
+       env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
+          API_MANAGEMENT_SERVICE_NAME: ${{ secrets.API_MANAGEMENT_SERVICE_NAME }}
 
   job-production:
     runs-on: ubuntu-latest
-    uses: ./.github/workflows/run-bicep-apim-with-env.yaml
-    with:
-      environmentType: Production
-    secrets:
-      AZURE_CREDENTIALS: ${{ secrets.AZURE_CLIENT_ID }}
-      AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
-      API_MANAGEMENT_SERVICE_NAME: ${{ secrets.API_MANAGEMENT_SERVICE_NAME }}
+    steps:
+     - uses: ./.github/workflows/run-bicep-apim-with-env.yaml
+       with:
+         environmentType: Production
+       env:
+         AZURE_CREDENTIALS: ${{ secrets.AZURE_CLIENT_ID }}
+         AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
+         API_MANAGEMENT_SERVICE_NAME: ${{ secrets.API_MANAGEMENT_SERVICE_NAME }}
       
