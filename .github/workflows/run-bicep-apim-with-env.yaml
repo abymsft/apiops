@@ -1,0 +1,49 @@
+name: Deploy APIM Bicep template
+
+on:
+  workflow_call:
+    inputs:
+      environmentType:
+        required: true
+        type: string
+    secrets:
+      AZURE_CREDENTIALS:
+        required: true
+      AZURE_RESOURCE_GROUP_NAME:
+        required: true
+
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Install Bicep CLI
+      run: |
+        curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+        chmod +x ./bicep
+        sudo mv ./bicep /usr/local/bin/bicep
+        bicep --help
+
+    - name: Validate Bicep template
+      run: |
+        bicep build ./main.bicep
+
+    - name: Deploy Bicep template
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.0.72
+        inlineScript: |
+          az deployment group create --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} --template-file ./Bicep/main.bicep --parameters apiManagementServiceName=${{ secrets.API_MANAGEMENT_SERVICE_NAME }}
+
+    - name: Logout of Azure
+      run: |
+        az logout
