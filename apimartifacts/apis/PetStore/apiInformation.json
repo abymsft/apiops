@@ -7,7 +7,6 @@
     "isCurrent": true,
     "path": "PetStore",
     "protocols": [
-      "http",
       "https"
     ],
     "serviceUrl": "https://petstore.swagger.io/v2",
