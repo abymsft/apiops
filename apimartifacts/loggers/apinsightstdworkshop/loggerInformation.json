@@ -1,0 +1,10 @@
+{
+  "properties": {
+    "credentials": {
+      "instrumentationKey": "{{Logger-Credentials--661331fd4634611ad8c89592}}"
+    },
+    "isBuffered": true,
+    "loggerType": "applicationInsights",
+    "resourceId": "/subscriptions/108654c8-941b-4791-bbaa-a39aaf820a0d/resourceGroups/apiops/providers/microsoft.insights/components/apinsightstdworkshop"
+  }
+}

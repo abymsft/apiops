@@ -1,0 +1,106 @@
+openapi: 3.0.1
+info:
+  title: Calculator
+  description: An API for basic arithmetic operations
+  version: '1.0'
+servers:
+  - url: http://tdapimdev01.azure-api.net/Calculator
+  - url: https://tdapimdev01.azure-api.net/Calculator
+paths:
+  /add:
+    get:
+      summary: Addition operation
+      description: Returns the sum of two numbers
+      operationId: get-add-a-a-b-b
+      parameters:
+        - name: a
+          in: query
+          description: First number
+          required: true
+          schema:
+            type: number
+        - name: b
+          in: query
+          description: Second number
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+  /subtract:
+    get:
+      summary: Subtraction operation
+      description: Returns the difference of two numbers
+      operationId: get-subtract-a-a-b-b
+      parameters:
+        - name: a
+          in: query
+          description: First number
+          required: true
+          schema:
+            type: number
+        - name: b
+          in: query
+          description: Second number
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+  /multiply:
+    get:
+      summary: Multiplication operation
+      description: Returns the product of two numbers
+      operationId: get-multiply-a-a-b-b
+      parameters:
+        - name: a
+          in: query
+          description: First number
+          required: true
+          schema:
+            type: number
+        - name: b
+          in: query
+          description: Second number
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+  /divide:
+    get:
+      summary: Division operation
+      description: Returns the division of two numbers
+      operationId: get-divide-a-a-b-b
+      parameters:
+        - name: a
+          in: query
+          description: First number
+          required: true
+          schema:
+            type: number
+        - name: b
+          in: query
+          description: Second number
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]
